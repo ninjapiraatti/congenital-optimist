@@ -58,29 +58,29 @@ fn main() -> ! {
 
         // Answer
         //ufmt::uwriteln!(&mut serial, "Got {}!\r", b).void_unwrap();
-        let mut leds_b = big_bits_from_integer(35);
-        let mut leds_s = small_bits_from_integer(9);
-        for i in 0..6 {
+        let mut leds_b = big_bits_from_integer(25);
+        let mut leds_s = small_bits_from_integer(6);
+        for j in 0..4 {
+            if leds_s[j] {
+                small_leds[j].set_high();
+            } else {
+                small_leds[j].set_low();
+            }
+        }
+        for i in 0..8 {
             if leds_b[i] {
                 big_leds[i].set_high();
             } else {
                 big_leds[i].set_low();
             }
         }
-        for i in 0..3 {
-            if leds_s[i] {
-                small_leds[i].set_high();
-            } else {
-                small_leds[i].set_low();
-            }
-        }
         delay_ms(delay);
     }
 }
 
-fn big_bits_from_integer(integer: u8) -> [bool; 7] {
-    let mut bits = [false; 7];
-    for i in 0..6 {
+fn big_bits_from_integer(integer: u8) -> [bool; 8] {
+    let mut bits = [true; 8];
+    for i in 0..8{
         bits[i] = (integer & (1 << i)) != 0;
     }
     bits
@@ -88,8 +88,9 @@ fn big_bits_from_integer(integer: u8) -> [bool; 7] {
 
 fn small_bits_from_integer(integer: u8) -> [bool; 4] {
     let mut bits = [false; 4];
-    for i in 0..3 {
+    for i in 0..4 {
         bits[i] = (integer & (1 << i)) != 0;
+        //bits[i] = true;
     }
     bits
 }
