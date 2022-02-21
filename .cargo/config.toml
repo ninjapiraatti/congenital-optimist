@@ -1,0 +1,10 @@
+[build]
+target = "avr-specs/avr-atmega328p.json"
+
+[target.'cfg(target_arch = "avr")']
+# Command to find the USB devices: ls -lha /dev/tty/*
+runner = "ravedude nano -P /dev/tty.usbserial-140 --open-console --baudrate 57600"
+
+[unstable]
+build-std = ["core"]
+build-std-features = ["compiler-builtins-mangled-names"]
